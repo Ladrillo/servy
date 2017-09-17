@@ -1,4 +1,7 @@
 defmodule Servy.Parser do
+
+    alias Servy.Conv
+
     def parse(request) do
         [method, path, _] =
             request
@@ -6,11 +9,9 @@ defmodule Servy.Parser do
             |> List.first
             |> String.split(" ")
 
-        %{
-            status:    nil,
-            method:    method,
-            path:      path,
-            resp_body: ""
+        %Conv{
+            method: method,
+            path:   path,
         }
     end
 end

@@ -1,6 +1,8 @@
 defmodule Servy.Handler do
     @moduledoc "Handles HTTP requests"
 
+    alias Servy.Conv
+
     @pages_path Path.expand("../../pages", __DIR__)
 
     import Servy.Plugins, only: [rewrite_path: 1, log: 1, track: 1]
@@ -17,19 +19,19 @@ defmodule Servy.Handler do
         |> format_response
     end
 
-    def route(%{ method: "GET", path: "/wildthings" } = conv) do
-        %{ conv | status: 200, resp_body: "Bears, Lions, Tigerz" }
+    def route(%Conv{ method: "GET", path: "/wildthings" } = conv) do
+        %Conv{ conv | status: 200, resp_body: "Bears, Lions, Tigerz" }
     end
 
-    def route(%{ method: "GET", path: "/bears" } = conv) do
-        %{ conv | status: 200, resp_body: "Teddy, Smokey, Paddington" }
+    def route(%Conv{ method: "GET", path: "/bears" } = conv) do
+        %Conv{ conv | status: 200, resp_body: "Teddy, Smokey, Paddington" }
     end
 
-    def route(%{ method: "GET", path: "/bears/" <> id } = conv) do
-        %{ conv | status: 200, resp_body: "Bear #{id}" }
+    def route(%Conv{ method: "GET", path: "/bears/" <> id } = conv) do
+        %Conv{ conv | status: 200, resp_body: "Bear #{id}" }
     end
 
-    def route(%{ method: "GET", path: "/about" } = conv) do
+    def route(%Conv{ method: "GET", path: "/about" } = conv) do
         @pages_path
         |> Path.join("about.html")
         |> File.read
@@ -37,19 +39,19 @@ defmodule Servy.Handler do
     end
 
     def handle_file({:error, :enoent}, conv) do
-        %{ conv | status: 404, resp_body: "File not found" }
+        %Conv{ conv | status: 404, resp_body: "File not found" }
     end
 
     def handle_file({:error, reason}, conv) do
-        %{ conv | status: 500, resp_body: "File error: #{reason}" }
+        %Conv{ conv | status: 500, resp_body: "File error: #{reason}" }
     end
 
     def handle_file({:ok, content}, conv) do
-        %{ conv | status: 200, resp_body: content }
+        %Conv{ conv | status: 200, resp_body: content }
     end
 
-    def route(%{ path: path } = conv) do
-        %{ conv | status: 404, resp_body: "No #{path} here!" }
+    def route(%Conv{path: path} = conv) do
+        %Conv{ conv | status: 404, resp_body: "No #{path} here!" }
     end
 
     def format_response(conv) do
