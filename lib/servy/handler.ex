@@ -33,7 +33,6 @@ defmodule Servy.Handler do
     end
 
     def route(%Conv{ method: "POST", path: "/bears" } = conv) do
-        # IEx.pry
         %Conv{ conv | status: 200, resp_body: "#{conv.params["type"]} bear #{conv.params["name"]} created!" }
     end
 
