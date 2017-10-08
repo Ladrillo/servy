@@ -1,5 +1,6 @@
 defmodule Servy.Handler do
     @moduledoc "Handles HTTP requests"
+    require IEx
 
     alias Servy.Conv
 
@@ -29,6 +30,11 @@ defmodule Servy.Handler do
 
     def route(%Conv{ method: "GET", path: "/bears/" <> id } = conv) do
         %Conv{ conv | status: 200, resp_body: "Bear #{id}" }
+    end
+
+    def route(%Conv{ method: "POST", path: "/bears" } = conv) do
+        # IEx.pry
+        %Conv{ conv | status: 200, resp_body: "#{conv.params["type"]} bear #{conv.params["name"]} created!" }
     end
 
     def route(%Conv{ method: "GET", path: "/about" } = conv) do
@@ -107,7 +113,7 @@ Accept: */*
 """
 
 request6 = """
-POST /about HTTP/1.1
+POST /bears HTTP/1.1
 Host: example.com
 User-Agent: ExampleBrowser/1.0
 Accept: */*
@@ -129,5 +135,8 @@ name=Baloo&type=Brown
 # response4 = Servy.Handler.handle(request4)
 # IO.puts response4
 
-response5 = Servy.Handler.handle(request5)
-IO.puts response5
+# response5 = Servy.Handler.handle(request5)
+# IO.puts response5
+
+response6 = Servy.Handler.handle(request6)
+IO.puts response6
