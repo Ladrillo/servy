@@ -18,8 +18,6 @@ defmodule Servy.Parser do
         [method, path, _] = String.split(request_line, " ")
         headers = parse_headers(header_lines, %{})
         params = parse_params(params_string)
-        
-        IEx.pry
 
         %Conv{
             method: method,
