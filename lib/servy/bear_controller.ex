@@ -2,12 +2,13 @@ defmodule Servy.BearController do
   require IEx
   alias Servy.Conv
   alias Servy.Wildthings
+  alias Servy.Bear
 
   def index(conv) do
     items = Wildthings.list_bears()
-    |> Enum.filter(&(&1.type == "Brown"))
-    |> Enum.sort(fn a, b -> a.name >= b.name end)
-    |> Enum.map(fn bear -> "<li>#{bear.name} #{bear.type}</li>" end)
+    |> Enum.filter(&Bear.is_brown/1)
+    |> Enum.sort(&Bear.sort_bear_by_name/2)
+    |> Enum.map(&Bear.make_bear_item/1)
     |> Enum.join
   
     %Conv{ conv | status: 200, resp_body: "<ul>#{items}</ul>" }  

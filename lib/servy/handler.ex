@@ -22,7 +22,7 @@ defmodule Servy.Handler do
     end
 
     def route(%Conv{ method: "GET", path: "/wildthings" } = conv) do
-        %Conv{ conv | status: 200, resp_body: "Bears, Lions, Tigerz" }
+        %Conv{ conv | status: 200, resp_body: "Bears, Lions, Tigers" }
     end
 
     def route(%Conv{ method: "GET", path: "/bears" } = conv) do
@@ -46,7 +46,7 @@ defmodule Servy.Handler do
     end
 
     def handle_file({:error, :enoent}, conv) do
-        %Conv{ conv | status: 404, resp_body: "File not found" }
+        %Conv{ conv | status: 404, resp_body: "File not found!" }
     end
 
     def handle_file({:error, reason}, conv) do
@@ -58,7 +58,7 @@ defmodule Servy.Handler do
     end
 
     def route(%Conv{path: path} = conv) do
-        %Conv{ conv | status: 404, resp_body: "No #{path} here!" }
+        %Conv{ conv | status: 404, resp_body: "No #{path} here!!" }
     end
 
     def format_response(conv) do

@@ -11,8 +11,13 @@ defmodule Servy.Wildthings do
     ]
   end
 
-  def get_bear(id) do
-    list_bears
-    |> Enum.find(&(&1.id == String.to_integer(id)))
+  def get_bear(id) when is_integer(id) do
+    list_bears()
+    |> Enum.find(&(&1.id == id))
+  end
+
+  def get_bear(id) when is_binary(id) do
+    id |> String.to_integer |> get_bear
   end
 end
+
