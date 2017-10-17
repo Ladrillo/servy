@@ -124,6 +124,14 @@ Content-Length: 21
 name=Baloo&type=Brown
 """
 
+request7 = """
+GET /bears HTTP/1.1
+Host: example.com
+User-Agent: ExampleBrowser/1.0
+Accept: */*
+
+"""
+
 # response = Servy.Handler.handle(request)
 # IO.puts response
 
@@ -139,5 +147,8 @@ name=Baloo&type=Brown
 # response5 = Servy.Handler.handle(request5)
 # IO.puts response5
 
-response6 = Servy.Handler.handle(request6)
-IO.puts response6
+# response6 = Servy.Handler.handle(request6)
+# IO.puts response6
+
+response7 = Servy.Handler.handle(request7)
+IO.puts response7
