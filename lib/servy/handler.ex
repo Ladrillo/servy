@@ -135,8 +135,8 @@ Accept: */*
 # response = Servy.Handler.handle(request)
 # IO.puts response
 
-# response2 = Servy.Handler.handle(request2)
-# IO.puts response2
+response2 = Servy.Handler.handle(request2)
+IO.puts response2
 
 # response3 = Servy.Handler.handle(request3)
 # IO.puts response3
@@ -150,5 +150,5 @@ Accept: */*
 # response6 = Servy.Handler.handle(request6)
 # IO.puts response6
 
-response7 = Servy.Handler.handle(request7)
-IO.puts response7
+# response7 = Servy.Handler.handle(request7)
+# IO.puts response7
